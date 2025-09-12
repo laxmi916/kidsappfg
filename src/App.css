@@ -103,8 +103,13 @@
 
 .card-blue { background-color: #D6EAF8; }
 .card-yellow { background-color: #FCF3CF; }
-.card-orange { background-color: #FDEBD0; }
+/*.card-orange { background-color: #FDEBD0; }*/
 .card-green { background-color: #D5F5E3; }
+.result-box.card.card-orange {
+  display: inline-block;   /* shrink to fit content */
+  width: auto;             /* let content define width */
+}
+
 
 .quiz-question {
   margin-bottom: 12px;

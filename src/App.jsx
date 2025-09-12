@@ -428,53 +428,6 @@ function App() {
   </div>
 )}
 
-      {/*  
-      {mode === "Math" && mathProblems.length > 0 && (
-        <div className="result-box card card-orange">
-          <h2>🧮 Math Problems ({operation})</h2>
-          {mathProblems.map((p, idx) => {
-            let color = "black";
-            let symbol = "";
-            if (mathScore !== null) {
-              if (Number(mathAnswers[idx]) === p.answer) {
-                color = "green";
-                symbol = " ✅";
-              } else {
-                color = "red";
-                symbol = ` ❌ (Correct: ${p.answer})`;
-              }
-            }
-
-            return (
-              <div key={idx} style={{ marginBottom: "12px", color }}>
-                <p>
-                  <strong>
-                    {idx + 1}. {p.question} {symbol}
-                  </strong>
-                </p>
-                <input
-                  type="number"
-                  value={mathAnswers[idx] || ""}
-                  onChange={(e) => handleMathAnswerChange(idx, e.target.value)}
-                  style={{ padding: "6px", width: "80px" }}
-                  disabled={mathScore !== null}
-                />
-              </div>
-            );
-          })}
-          {mathScore === null ? (
-            <button className="btn btn-orange" onClick={submitMath}>
-              ✅ Submit Math
-            </button>
-          ) : (
-            <h3>
-              ⭐ Your Score: {mathScore}/{mathProblems.length}
-            </h3>
-          )}
-        </div>
-      )}
-      */
-
     </div>
   );
 }

@@ -395,7 +395,7 @@ function App() {
               {p.question.includes("*") && "×"}
               {p.question.includes("/") && "÷"} {num2}
             </div>
-            <div style={{ borderTop: "2px solid black", marginTop: "4px" }}>
+            <div style={{ borderTop: "2px solid black", width: "7ch", marginTop: "4px" }}>
               <input
                 type="number"
                 value={mathAnswers[idx] || ""}

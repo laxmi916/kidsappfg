@@ -106,6 +106,7 @@
 /*.card-orange { background-color: #FDEBD0; }*/
 .card-green { background-color: #D5F5E3; }
 .result-box.card.card-orange {
+  background-color: #FDEBD0;
   display: inline-block;   /* shrink to fit content */
   width: auto;             /* let content define width */
 }

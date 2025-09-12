@@ -26,8 +26,8 @@ function App() {
   const [mathScore, setMathScore] = useState(null);
   const [operation, setOperation] = useState("addition");
 
-  const API_BASE = "https://kids-learning-backend-eryf.onrender.com";
-  //const API_BASE = "https://kidsappbg.onrender.com"
+  //const API_BASE = "https://kids-learning-backend-eryf.onrender.com";
+  const API_BASE = "https://kidsappbg.onrender.com"
 
   const callAPI = async (endpoint, body) => {
     const res = await fetch(`${API_BASE}/${endpoint}`, {
@@ -366,67 +366,97 @@ function App() {
 
       {/* Math */}
       {mode === "Math" && mathProblems.length > 0 && (
-  <div className="result-box card card-orange">
-    <h2>🧮 Math Problems ({operation})</h2>
-    {mathProblems.map((p, idx) => {
-      let color = "black";
-      let symbol = "";
-      if (mathScore !== null) {
-        if (Number(mathAnswers[idx]) === p.answer) {
-          color = "green";
-          symbol = " ✅";
-        } else {
-          color = "red";
-          symbol = ` ❌ (Correct: ${p.answer})`;
-        }
-      }
-
-      // Split numbers from question
-      let [num1, num2] = p.question.split(/[\+\-\*\/=]/).map((n) => n.trim());
-
-      return (
-        <div key={idx} style={{ marginBottom: "20px", color, fontFamily: "monospace" }}>
-          <strong>{idx + 1}.</strong>
-          <div style={{ textAlign: "right", fontSize: "20px", lineHeight: "1.6" }}>
-            <div>{num1}</div>
-            <div>
-              {p.question.includes("+") && "+"}
-              {p.question.includes("-") && "-"}
-              {p.question.includes("*") && "×"}
-              {p.question.includes("/") && "÷"} {num2}
-            </div>
-            <div style={{ borderTop: "2px solid black", width: "7ch",marginLeft: "auto", marginTop: "4px" }}>
-              <input
-                type="number"
-                value={mathAnswers[idx] || ""}
-                onChange={(e) => handleMathAnswerChange(idx, e.target.value)}
+        <div className="result-box card card-orange">
+          <h2>🧮 Math Problems ({operation})</h2>
+          {mathProblems.map((p, idx) => {
+            let color = "black";
+            let symbol = "";
+            if (mathScore !== null) {
+              if (Number(mathAnswers[idx]) === p.answer) {
+                color = "green";
+                symbol = " ✅";
+              } else {
+                color = "red";
+                symbol = ` ❌ (Correct: ${p.answer})`;
+              }
+            }
+      
+            // Split numbers from question
+            let [num1, num2] = p.question.split(/[\+\-\*\/=]/).map((n) => n.trim());
+      
+            return (
+              <div
+                key={idx}
                 style={{
-                  padding: "6px",
-                  width: "100px",
-                  fontSize: "18px",
-                  textAlign: "center",
-                  border: "1px solid gray",
-                  marginTop: "4px",
+                  display: "flex",
+                  alignItems: "flex-start",
+                  marginBottom: "20px",
+                  color,
+                  fontFamily: "monospace",
                 }}
-                disabled={mathScore !== null}
-              />
-            </div>
-          </div>
-          {symbol && <div style={{ marginTop: "4px" }}>{symbol}</div>}
+              >
+                {/* Left: Question number */}
+                <div style={{ marginRight: "12px" }}>
+                  <strong>{idx + 1}.</strong>
+                </div>
+      
+                {/* Right: Math problem */}
+                <div style={{ flex: 1, textAlign: "right", width: "7ch", fontSize: "20px", lineHeight: "1.6" }}>
+                  <div>{num1}</div>
+                  <div>
+                    {p.question.includes("+") && "+"}
+                    {p.question.includes("-") && "-"}
+                    {p.question.includes("*") && "×"}
+                    {p.question.includes("/") && "÷"} {num2}
+                  </div>
+      
+                  {/* underline + answer box */}
+                  <div
+                    style={{
+                      borderTop: "2px solid black",
+                      marginTop: "4px",
+                      minWidth: "7ch", // ✅ minimum width
+                      width: `${Math.max(num1.length, num2.length)}ch`, // dynamic width
+                      marginLeft: "auto", // push underline to the right
+                      textAlign: "right", // align input inside
+                    }}
+                  >
+                    <input
+                      type="number"
+                      value={mathAnswers[idx] || ""}
+                      onChange={(e) => handleMathAnswerChange(idx, e.target.value)}
+                      style={{
+                        padding: "6px",
+                        fontSize: "18px",
+                        width: "100%", // match underline width
+                        textAlign: "right",
+                        border: "1px solid gray",
+                        marginTop: "4px",
+                        boxSizing: "border-box", // so padding doesn't break width
+                      }}
+                    />
+                  </div>
+                </div>
+      
+                {/* Correct/Incorrect symbol */}
+                {symbol && <div style={{ marginTop: "4px", marginLeft: "8px" }}>{symbol}</div>}
+              </div>
+            );
+          })}
+      
+          {mathScore === null ? (
+            <button className="btn btn-orange" onClick={submitMath}>
+              ✅ Submit Math
+            </button>
+          ) : (
+            <h3>
+              ⭐ Your Score: {mathScore}/{mathProblems.length}
+            </h3>
+          )}
         </div>
-      );
-    })}
-    {mathScore === null ? (
-      <button className="btn btn-orange" onClick={submitMath}>
-        ✅ Submit Math
-      </button>
-    ) : (
-      <h3>
-        ⭐ Your Score: {mathScore}/{mathProblems.length}
-      </h3>
-    )}
-  </div>
-)}
+      )}
+
+
 
     </div>
   );

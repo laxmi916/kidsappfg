@@ -202,7 +202,7 @@ function App() {
             <h2>📖 Story</h2>
 
             <div style={{ marginBottom: "16px" }}>
-            {story.split(/(?<=[.!?])\s+/).map((para, pIdx) => (
+            {story.split(/(?<=[.])\s+/).map((para, pIdx) => (
                 <p key={pIdx} style={{ marginBottom: "12px", lineHeight: "1.6" }}>
                 {para.split(".").map((word, wIdx) => {
                     const spellWord = word.split(".").join(".").replace(/[^a-zA-Z]/g, "");
